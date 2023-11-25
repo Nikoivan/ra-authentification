@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
 
+import "./NetoHeader.css";
+
 const NetoHeader = ({ children }: PropsWithChildren) => {
   return (
     <header className="Neto-Header">

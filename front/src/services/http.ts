@@ -1,29 +1,41 @@
+import { NewsItemProps } from "../components/News/Item/NewsItem";
+
+export type HTTPResponse =
+  | {
+      token?: string;
+      error?: string | number;
+      login?: { id: string; login: string; name: string; avatar: string };
+      news?: NewsItemProps[];
+    }
+  | undefined;
+
 export default async function http(
   url: string,
-  options?: { method: string; body: Record<string, unknown> }
-) {
+  options: {
+    method: "GET" | "POST";
+    headers: Record<string, string>;
+    body?: string;
+  }
+): Promise<HTTPResponse> {
   let response;
-  console.log(options);
   try {
-    if (options) {
-      response = await fetch(url, {
-        method: options.method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(options.body),
-      });
-    }
-    response = await fetch(url);
+    response = await fetch(url, options);
 
     if (!(response.status >= 200 && response.status < 300)) {
-      return { error: "Error of response" };
+      return { error: response.status };
     }
     const json = await response.json();
     if (!json) {
       return { error: "Error of responseType" };
     }
-    return { response: json };
+    if (json.login) {
+      return { login: json };
+    }
+    if (json[0]) {
+      return { news: json };
+    }
+
+    return json;
   } catch (e) {
     console.error(e);
   }

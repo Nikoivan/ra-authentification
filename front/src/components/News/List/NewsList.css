@@ -1,0 +1,12 @@
+.Neto-News {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.Item-Image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}

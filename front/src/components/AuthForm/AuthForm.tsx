@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 
+import "./AuthForm.css";
+
 export type AuthFormProps = {
   formState: { login: string; password: string };
   onSubmitHandler: () => void;
@@ -15,7 +17,7 @@ export default function AuthForm({
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={(e: FormEvent) => {
         e.preventDefault();
         onSubmitHandler();
       }}
@@ -27,7 +29,7 @@ export default function AuthForm({
         }}
         placeholder="Username"
         type="text"
-        className="AuthForm-LoginInput"
+        className="AuthForm-Item AuthForm-LoginInput"
         name="login"
         value={login}
       />
@@ -37,11 +39,14 @@ export default function AuthForm({
         }}
         placeholder="Password"
         type="text"
-        className="AuthForm-PasswordInput"
+        className="AuthForm-Item AuthForm-PasswordInput"
         name="password"
         value={password}
       />
-      <button onClick={onSubmitHandler} className="AuthForm-SubmitBtn">
+      <button
+        onClick={onSubmitHandler}
+        className="AuthForm-Item AuthForm-SubmitBtn"
+      >
         Login
       </button>
     </form>
