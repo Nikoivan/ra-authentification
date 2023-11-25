@@ -74,11 +74,11 @@ passport.use(
 const bearerAuth = passport.authenticate("bearer", { session: false });
 
 app.post("/auth", async (req, res) => {
-  console.log(req);
   try {
     const { login, password } = req.body;
     const user = users.get(login);
     if (user === undefined) {
+      console.log("1");
       return res
         .status(400)
         .send(JSON.stringify({ message: "user not found" }));
